@@ -104,7 +104,16 @@ a:visited {
 }
 
 #doc3 code, pre {
-  font-size: 85%;
+  font-family: "Droid Sans Mono", monospace;
+  color: #0B2E59;
+}
+
+#doc3 code {
+  font-size: 90%;
+}
+
+#doc3 pre {
+  line-height: 130%;
 }
 
 #doc3 #hd h1 {
@@ -144,7 +153,6 @@ a:visited {
 
 #doc3 .description ul {
   padding: 10px 0 10px 28px;
-  font-size: 90%;
   list-style: disc
 }
 
