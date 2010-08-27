@@ -358,192 +358,236 @@
                   #end if
 
                   #if $inherited.methods
-                      <div rel="yui:inheritance">                    
+                    <div rel="yui:inheritance">                    
                       #for $superclassname in $inherited.methods
-                          <div class="section field inheritance" rel="yui:superclass"  resource="${superclassname}.html">
-                              <h4>Methods inherited from <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:</h4>
-                              <div class="content" rel="yui:methods">
-                                  <code>
-                                      #set i=0
-                                      #set l=len($inherited.methods[$superclassname])-1
-                                      #for $method in $inherited.methods[$superclassname]
-                                          <span rel="yui:method" resource="${superclassname}.html#method_$method.name">                                        
-                                          <a class="$method.access#if $method.deprecated# deprecated#end if#" href="${superclassname}.html#method_$method.name" property="yui:name" title="$method.name">$method.name</a>#if $i<$l#<span class="$method.access#if $method.deprecated# deprecated#end if#">,</span>#end if#
-                                          </span>
-                                          #set i=i+1
-                                          #end for
-                                  </code>
-                              </div>
-                          </div>
-                      #end for
-                      </div>
-                  #end if
-                  </div>
-
-                  <div rel="yui:events" resource="#events">
-                  #if $events
-                      <div class="section method details">
-                          <h3 id="events">Events</h3>
-                          <div class="content">
-                              #for $event in $events
-                                  <div class="$event.access#if $event.deprecated# deprecated#end if#" rel="yui:event" resource="#event_$event.name">
-                                  <h4>
-                                      <a name="event_$event.name">$event.name</a></h4>
-                                  <div class="detail">
-                                      <code>
-                                      #if $event.access# $event.access #end if#
-                                      #if $event.static# $event.static #end if#
-                                      #if $event.final# $event.final #end if#
-                                          <strong property="yui:name">$event.name</strong>
-
-                                          (
-                                          #if $event.params
-                                              #set $i=0
-                                              #set $current = ""
-                                              #for $param in $event.params#
-                                                  #if $current != $param.name
-                                                      #if $i > 0#, #end if#
-                                                      #set $i = $i + 1
-                                                      #set $current = $param.name
-                                                       $param.name
-                                                  #end if#
-                                              #end for#
-                                          #end if
-                                          )
-
-                                      </code>
-                                      
-                                      <div class="description" property="yui:description">
-                                          $event.description
-                                      </div>
-
-                                      <div class="description">
-
-
-                                          #if $event.params
-                                              <dl rel="yui:parameters">
-                                                  <dt>Parameters:</dt>
-                                                  #for $param in $event.params
-                                                      <dd rel="yui:parameter">
-                                                          <code><span property="yui:name">$param.name</span>
-                                                              &lt;<span property="yui:type">$param.type</span>&gt;
-                                                          </code>
-                                                          <span property="yui:description">$param.description</span>
-                                                      </dd>
-                                                      
-                                                  #end for
-                                              </dl>
-                                          #end if
-
-                                          #if $event.bubbles
-                                          <div class="bubbles">
-                                              <strong>Bubbles:</strong> This event bubbles to <a href="${event.bubbles}.html" title="$event.bubbles">$event.bubbles</a>.
-                                          </div>        
-                                          #end if
-                                          #if $event.preventable
-                                          <div class="preventable">
-                                              <strong>Preventable:</strong> This event is preventable by method e.preventDefault().  The default function executed by this event is $event.preventable.
-                                          </div>        
-                                          #end if
-
-                                          #if $event.deprecated
-                                          <div class="deprecated">
-                                              <strong>Deprecated</strong> $event.deprecated
-                                          </div>        
-                                          #end if
-                                      </div>
-
-                                  </div>
-                                  <hr />
-                                  </div>
+                        <div class="section field inheritance" rel="yui:superclass"  resource="${superclassname}.html">
+                          <h4>
+                            Methods inherited from
+                            <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:
+                          </h4>
+                          <div class="content" rel="yui:methods">
+                            <code>
+                              #set i=0
+                              #set l=len($inherited.methods[$superclassname])-1
+                              #for $method in $inherited.methods[$superclassname]
+                                <span rel="yui:method" resource="${superclassname}.html#method_$method.name">                                        
+                                  <a class="$method.access#if $method.deprecated# deprecated#end if#" href="${superclassname}.html#method_$method.name" property="yui:name" title="$method.name">$method.name</a>
+                                  #if $i < $l#
+                                    <span class="$method.access #if $method.deprecated# deprecated #end if#">,</span>
+                                  #end if#
+                                </span>
+                                #set i=i+1
                               #end for
+                            </code>
                           </div>
-                      </div>
+                        </div>
+                      #end for
+                    </div>
                   #end if
+                </div>
 
+                <div rel="yui:events" resource="#events">
+                  #if $events
+                    <div class="section method details">
+                      <h3 id="events">Events</h3>
+                      <div class="content">
+                        #for $event in $events
+                          <div class="$event.access #if $event.deprecated# deprecated #end if#" rel="yui:event" resource="#event_$event.name">
+                            <h4>
+                              <a name="event_$event.name">$event.name</a>
+                            </h4>
+                            <div class="detail">
+                              <code>
+                                #if $event.access#
+                                  $event.access
+                                #end if#
+                                #if $event.static#
+                                  $event.static
+                                #end if#
+                                #if $event.final#
+                                  $event.final
+                                #end if#
+                                <strong property="yui:name">$event.name</strong>
+                                (
+                                #if $event.params
+                                  #set $i=0
+                                  #set $current = ""
+                                  #for $param in $event.params#
+                                    #if $current != $param.name
+                                      #if $i > 0#, #end if#
+                                      #set $i = $i + 1
+                                      #set $current = $param.name
+                                      $param.name
+                                    #end if#
+                                  #end for#
+                                #end if
+                                )
+                              </code>
+                                    
+                              <div class="description" property="yui:description">
+                                $event.description
+                              </div>
+
+                              <div class="description">
+                                #if $event.params
+                                  <dl rel="yui:parameters">
+                                    <dt>Parameters:</dt>
+                                    #for $param in $event.params
+                                      <dd rel="yui:parameter">
+                                        <code>
+                                          <span property="yui:name">$param.name</span>
+                                          &lt;<span property="yui:type">$param.type</span>&gt;
+                                        </code>
+                                        <span property="yui:description">$param.description</span>
+                                      </dd>
+                                    #end for
+                                  </dl>
+                                #end if
+
+                                #if $event.bubbles
+                                  <div class="bubbles">
+                                    <strong>Bubbles:</strong>
+                                    This event bubbles to <a href="${event.bubbles}.html" title="$event.bubbles">$event.bubbles</a>.
+                                  </div>        
+                                #end if
+                                #if $event.preventable
+                                  <div class="preventable">
+                                    <strong>Preventable:</strong>
+                                    This event is preventable by method e.preventDefault(). The default function executed by this event is $event.preventable.
+                                  </div>        
+                                #end if
+
+                                #if $event.deprecated
+                                  <div class="deprecated">
+                                    <strong>Deprecated</strong>
+                                    $event.deprecated
+                                  </div>        
+                                #end if
+                              </div>
+
+                            </div>
+                            
+                            <hr />
+                          </div>
+                        #end for
+                      </div>
+                    </div>
+                  #end if
 
                   #if $inherited.events
-                      <div rel="yui:inheritance">                    
+                    <div rel="yui:inheritance">                    
                       #for $superclassname in $inherited.events
-                      <div class="section field inheritance" rel="yui:superclass"  resource="${superclassname}.html">
-                          <h4>Events inherited from <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:</h4>
+                        <div class="section field inheritance" rel="yui:superclass"  resource="${superclassname}.html">
+                          <h4>
+                            Events inherited from
+                            <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:
+                          </h4>
                           <div class="content" rel="yui:events">
-                              <code>
-                                  #set i=0
-                                  #set l=len($inherited.methods[$superclassname])-1
-                                  #for $event in $inherited.events[$superclassname]
-                                      #set i=i+1
-                                      <span rel="yui:event" resource="${superclassname}.html#event_$event.name">
-                                      <a class="$event.access#if $event.deprecated# deprecated#end if#" href="${superclassname}.html#event_$event.name" property="yui:name" title="$event.name">$event.name</a>#if $i<$l#<span class="$event.access#if $event.deprecated# deprecated#end if#">,</span>#end if##set i=i+1#
-                                      </span>
-                                  #end for#
-                              </code>
+                            <code>
+                              #set i=0
+                              #set l=len($inherited.methods[$superclassname])-1
+                              #for $event in $inherited.events[$superclassname]
+                                #set i=i+1
+                                <span rel="yui:event" resource="${superclassname}.html#event_$event.name">
+                                  <a class="$event.access#if $event.deprecated# deprecated#end if#" href="${superclassname}.html#event_$event.name" property="yui:name" title="$event.name">$event.name</a>
+                                  #if $i < $l#
+                                    <span class="$event.access#if $event.deprecated# deprecated#end if#">,</span>
+                                  #end if#
+                                  #set i=i+1#
+                                </span>
+                              #end for#
+                            </code>
                           </div>
-                      </div>
+                        </div>
                       #end for
-                      </div>
+                    </div>
                   #end if
-                  </div>
+                </div>
 
-                  <div rel="yui:attributes" resource="#configattributes">
+                <div rel="yui:attributes" resource="#configattributes">
                   #if $configs
-                      <div class="section field details">
-                          <h3 id="configattributes">Configuration Attributes</h3>
-                          <div class="content">
-                              #for $config in $configs
-                                  <div class="$config.access#if $config.deprecated# deprecated#end if#" rel="yui:attribute" resource="#config_$config.name">
-                                  <h4><a name="config_$config.name">$config.name</a>
-                                      <code>- #if $config.access#$config.access #end if##if $config.static#$config.static #end if##if $config.writeonce#$config.writeonce #end if##if $config.final#$config.final #end if#<span property="yui:type">$config.type</span></code>
-                                  </h4>
-                                  <div class="detail">
-                                      <div class="description" property="yui:description">
-                                          $config.description
-                                      </div>
-                                  </div>
+                    <div class="section field details">
+                      <h3 id="configattributes">Configuration Attributes</h3>
+                      <div class="content">
+                        #for $config in $configs
+                          <div class="$config.access #if $config.deprecated# deprecated #end if#" rel="yui:attribute" resource="#config_$config.name">
+                            <h4>
+                              <a name="config_$config.name">$config.name</a>
+                              <code>
+                                -
+                                #if $config.access#
+                                  $config.access
+                                #end if#
+                                #if $config.static#
+                                  $config.static
+                                #end if#
+                                #if $config.writeonce#
+                                  $config.writeonce
+                                #end if#
+                                #if $config.final#
+                                  $config.final
+                                #end if#
+                                <span property="yui:type">$config.type</span>
+                              </code>
+                            </h4>
 
-                                  #if $config.deprecated
-                                  <div class="deprecated">
-                                      <strong>Deprecated</strong> $config.deprecated
-                                  </div>        
-                                  #end if
-   
-                                  #if $config.default
-                                  <div class="default">
-                                      Default Value: $config.default
-                                  </div>        
-                                  #end if
+                            <div class="detail">
+                              <div class="description" property="yui:description">
+                                $config.description
+                              </div>
+                            </div>
 
-                                  <hr />
-                                  </div>        
-                              #end for
+                            #if $config.deprecated
+                              <div class="deprecated">
+                                <strong>Deprecated</strong>
+                                $config.deprecated
+                              </div>        
+                            #end if
 
-                          </div>
+                            #if $config.default
+                              <div class="default">
+                                Default Value:
+                                $config.default
+                              </div>        
+                            #end if
+
+                            <hr />
+                          </div>        
+                        #end for
+
                       </div>
+                    </div>
                   #end if
 
                   #if $inherited.configs
-                      <div rel="yui:inheritance">                    
+                    <div rel="yui:inheritance">
                       #for $superclassname in $inherited.configs
-                      <div class="section field inheritance" rel="yui:superclass"  resource="${superclassname}.html">
-                          <h4>Configuration attributes inherited from <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:</h4>
+                        <div class="section field inheritance" rel="yui:superclass"  resource="${superclassname}.html">
+                          <h4>
+                            Configuration attributes inherited from
+                            <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:
+                          </h4>
                           <div class="content" rel="yui:attributes">
-                              <code>
-                                  #set i=0
-                                  #set l=len($inherited.configs[$superclassname])-1
-                                  #for $config in $inherited.configs[$superclassname]
-                                      #set i=i+1
-                                      <span rel="yui:attribute" resource="${superclassname}.html#config_$config.name">                                        
-                                      <a class="$config.access#if $config.deprecated# deprecated#end if#" href="${superclassname}.html#config_$config.name" property="yui:name" title="$config.name">$config.name</a>#if $i<$l#<span class="$config.access#if $config.deprecated# deprecated#end if#">,</span>#end if#
-                                      </span>
-                                      #set i=i+1
-                                      #end for#
-                              </code>
+                            <code>
+                              #set i=0
+                              #set l=len($inherited.configs[$superclassname])-1
+                              #for $config in $inherited.configs[$superclassname]
+                                #set i=i+1
+                                <span rel="yui:attribute" resource="${superclassname}.html#config_$config.name">                                        
+                                  <a class="$config.access#if $config.deprecated# deprecated#end if#" href="${superclassname}.html#config_$config.name" property="yui:name" title="$config.name">$config.name</a>
+                                  #if $i < $l#
+                                    <span class="$config.access#if $config.deprecated# deprecated#end if#">,</span>
+                                  #end if#
+                                </span>
+                                #set i=i+1
+                              #end for#
+                            </code>
                           </div>
-                      </div>
+                        </div>
                       #end for
-                      </div>
+                    </div>
                   #end if
-                  </div>
+                </div>
 
               #else if $modulename
                  
