@@ -10,15 +10,15 @@
   <title>
     API: $modulename
     #if $classname#
-      $classname
+      &rarr; $classname
     #end if#
     #if $filename#
-      $filename
+      &rarr; $filename
     #end if#
   </title>
 
   <link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css#if $timestamp#?stamp=$timestamp#end if#" />
-  <link rel="stylesheet" type="text/css" href="assets/dana.css">
+  <link rel="stylesheet" type="text/css" href="assets/main.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono">
 
   <!-->
@@ -173,6 +173,7 @@
               $description
             </div>
 
+
             #if $constructor
               <div class="section constructor" resource="#constructor">
                 <h3>Constructor</h3>
@@ -196,8 +197,7 @@
                       
                       <td class="names">
                         <code>
-                          $classname
-                          (
+                          <span>$classname</span>(
                           #if $constructor.params
                             #set $i=0
                             #set $current=""
@@ -250,248 +250,290 @@
               </div>
             #end if
 
-            <div class="section properties" resource="#properties">
-              #if $properties
-                <h3>Properties</h3>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>
-                        Properties
-                      </th>
-                      <th>
-                        Type
-                      </th>
-                      <th>
-                        Description
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-                    #for $property in $properties
+
+            #if $properties or $inherited.properties
+              <div class="section properties" resource="#properties">
+                #if $properties
+                  <h3>Properties</h3>
+                  <table>
+                    <thead>
                       <tr>
-                      
-                        <td class="names">
-                          <code>
-                            <a name="property_$property.name">$property.name</a>
-                          </code>
-                        </td>
-
-                        <td class="type">
-                          <code>
-                            $property.type
-                          </code>
-
-                          #if $property.access#
-                            <span class="access">$property.access</span>
-                          #end if#
-                          #if $property.static#
-                            <span class="static">$property.static</span>
-                          #end if#
-                          #if $property.final#
-                            <span class="final">$property.final</span>
-                          #end if#
-                        </td>
-
-                        <td class="description">
-                          $property.description
-                          
-                          #if $property.default
-                            Default value is <code>$property.default</code>.
-                          #end if
-
-                          #if $property.deprecated
-                            <div class="deprecated">
-                              Deprecated: $property.deprecated
-                            </div>
-                          #end if
-                        </td>
-
+                        <th>
+                          Properties
+                        </th>
+                        <th>
+                          Type
+                        </th>
+                        <th>
+                          Description
+                        </th>
                       </tr>
-                    #end for
-                  
-                  </tbody>
-                </table>
-              #end if
-
-              #if $inherited.properties
-                <div class="inherited-properties">
-                  #for $superclassname in $inherited.properties
-                    <h4>
-                      Properties inherited from
-                      <a href="${superclassname}.html" title="$superclassname">$superclassname</a>
-                    </h4>
-
-                    <table>
-                      <thead>
+                    </thead>
+                    <tbody>
+                    
+                      #for $property in $properties
                         <tr>
-                          <th>
-                            Properties
-                          </th>
-                          <th>
-                            Notes
-                          </th>
+                      
+                          <td class="names">
+                            <code>
+                              <a name="property_$property.name">$property.name</a>
+                            </code>
+                          </td>
+
+                          <td class="type">
+                            <code>
+                              $property.type
+                            </code>
+
+                            #if $property.access#
+                              <span class="access">$property.access</span>
+                            #end if#
+                            #if $property.static#
+                              <span class="static">$property.static</span>
+                            #end if#
+                            #if $property.final#
+                              <span class="final">$property.final</span>
+                            #end if#
+                          </td>
+
+                          <td class="description">
+                            $property.description
+                          
+                            #if $property.default
+                              <p>
+                                Default value is <code>$property.default</code>.
+                              </p>
+                            #end if
+
+                            #if $property.deprecated
+                              <div class="deprecated">
+                                Deprecated: $property.deprecated
+                              </div>
+                            #end if
+                          </td>
+
                         </tr>
-                      </thead>
-                      <tbody>
+                      #end for
+                  
+                    </tbody>
+                  </table>
+                #end if
 
-                        #set i=0
-                        #set l=len($inherited.properties[$superclassname])-1
-                        #for $prop in $inherited.properties[$superclassname]#
+                #if $inherited.properties
+                  <div class="inherited-properties">
+                    #for $superclassname in $inherited.properties
+                      <h4>
+                        Properties inherited from
+                        <a href="${superclassname}.html" title="$superclassname">$superclassname</a>
+                      </h4>
 
-                          <tr resource="${superclassname}.html#property_$prop.name">
-
-                            <td class="names">
-                              <code>
-                                <a class="$prop.access#if $prop.deprecated# deprecated#end if#" href="${superclassname}.html#property_$prop.name" title="$prop.name">$prop.name</a>
-                              </code>
-                            </td>
-
-                            <td class="description">
-                              #if $prop.deprecated
-                                <div class="deprecated">
-                                  Deprecated: $property.deprecated
-                                </div>
-                              #end if
-                            </td>
-
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>
+                              Properties
+                            </th>
+                            <th>
+                              Notes
+                            </th>
                           </tr>
-                        #end for
+                        </thead>
+                        <tbody>
 
-                      </tbody>
-                    </table>
+                          #for $prop in $inherited.properties[$superclassname]#
 
-                  #end for
-                </div>
-              #end if
-            </div>
+                            <tr resource="${superclassname}.html#property_$prop.name">
 
-            <div rel="yui:methods" resource="#methods">
-              #if $methods
-                <div class="section method details">
-                  <h3 id="methods">Methods</h3>
-                  <div class="content">
-                    #for $method in $methods
-                      <div class="$method.access #if $method.deprecated# deprecated #end if#" rel="yui:method" resource="#method_$method.name">
-                        <h4>
-                          <a name="method_$method.name">$method.name</a>
-                        </h4>
-                        <div class="detail">
-                          <code>
+                              <td class="names">
+                                <code>
+                                  <a class="$prop.access#if $prop.deprecated# deprecated#end if#" href="${superclassname}.html#property_$prop.name" title="$prop.name">$prop.name</a>
+                                </code>
+                              </td>
+
+                              <td class="description">
+                                #if $prop.deprecated
+                                  <div class="deprecated">
+                                    Deprecated: $property.deprecated
+                                  </div>
+                                #end if
+                              </td>
+
+                            </tr>
+                          #end for
+
+                        </tbody>
+                      </table>
+
+                    #end for
+                  </div>
+                #end if
+              </div>
+            #end if
+
+
+            #if $methods or $inherited.methods
+              <div class="section methods" resource="#methods">
+                #if $methods
+                  <h3>Methods</h3>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>
+                          Methods
+                        </th>
+                        <th>
+                          Returns
+                        </th>
+                        <th>
+                          Description
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      #for $method in $methods
+                        <tr resource="#method_$method.name">
+
+                          <td class="names">
+                            <code>
+                              <a name="method_$method.name">$method.name</a>(
+                              #if $method.params
+                                #set $i=0
+                                #set $current = ""
+                                #for $param in $method.params#
+                                  #if $current != $param.name
+                                    #if $i > 0#, #end if#
+                                    #set $i = $i + 1
+                                    #set $current = $param.name
+                                    $param.name
+                                  #end if#
+                                #end for#
+                              #end if
+                              )
+                            </code>
+                          </td>
+
+                          <td class="returns">
+                            <code>
+                              $method.return.type
+                            </code>
+
                             #if $method.access#
-                              $method.access
+                              <span class="access">$method.access</span>
                             #end if#
                             #if $method.static#
-                              $method.static
+                              <span class="static">$method.static</span>
                             #end if#
                             #if $method.final#
-                              $method.final
+                              <span class="final">$method.final</span>
                             #end if#
-                            $method.return.type
-                            <strong property="yui:name">$method.name</strong>
-                            (
-                            #if $method.params
-                              #set $i=0
-                              #set $current = ""
-                              #for $param in $method.params#
-                                #if $current != $param.name
-                                  #if $i > 0#, #end if#
-                                  #set $i = $i + 1
-                                  #set $current = $param.name
-                                  $param.name
-                                #end if#
-                              #end for#
-                            #end if
-                            )
-                          </code>
+                          </td>
 
-                          <div class="description" property="yui:description">
+                          <td class="description">
                             $method.description
-                          </div>
 
-                          <div class="description">
                             #if $method.params
-                              <dl rel="yui:parameters">
-                                <dt>Parameters:</dt>
+                              <p>Parameters:</p>
+                              <ul>
                                 #for $param in $method.params
-                                  <dd rel="yui:parameter">
+                                  <li>
                                     <code>
-                                      <span property="yui:name">$param.name</span>
-                                      &lt;<span property="yui:type">$param.type</span>&gt;
+                                      $param.name
+                                      &lt;$param.type&gt;
                                     </code>
-                                    <span property="yui:description">$param.description</span>
-                                  </dd>
+                                    $param.description
+                                  </li>
                                 #end for
-                              </dl>
-                            #end if
-
-                            #if $method.return.description
-                              <dl>
-                                <dt>
-                                  Returns:
-                                  <code property="yui:return">
-                                    #if $method.return.type
-                                      $method.return.type
-                                    #end if
-                                  </code>
-                                </dt>
-                                <dd property="yui:returnInfo">$method.return.description</dd>
-                              </dl>
+                              <ul>
                             #end if
 
                             #if $method.chainable
-                              <div class="chainable">
-                                <strong>Chainable:</strong>
-                                This method is chainable.
-                              </div>
+                              <p class="chainable">
+                                Chainable: This method is chainable.
+                              </p>
                             #end if
 
                             #if $method.deprecated
                               <div class="deprecated">
-                                <strong>Deprecated</strong> $method.deprecated
+                                Deprecated: $method.deprecated
                               </div>
                             #end if
 
-                          </div>
+                            #if $method.return.description
+                              <p>Returns:</p>
+                              <ul>
+                                <li>
+                                  #if $method.return.type
+                                    <code>
+                                      &lt;$method.return.type&gt;
+                                    </code>
+                                  #end if
+                                  $method.return.description
+                                </li>
+                              </ul>
+                            #end if
+                          </td>
 
-                        </div>
+                        </tr>
+                      #end for
 
-                        <hr />
-                      </div>
+                    </tbody>
+                  </table>
+
+                #end if
+
+                #if $inherited.methods
+                  <div class="inherited-methods">
+                    #for $superclassname in $inherited.methods
+                      <h4 resource="${superclassname}.html">
+                        Methods inherited from
+                        <a href="${superclassname}.html" title="$superclassname">$superclassname</a>
+                      </h4>
+
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>
+                              Methods
+                            </th>
+                            <th>
+                              Notes
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          #for $method in $inherited.methods[$superclassname]
+
+                            <tr resource="${superclassname}.html#method_$method.name">
+
+                              <td class="names">
+                                <code>
+                                  <a class="$method.access#if $method.deprecated# deprecated#end if#" href="${superclassname}.html#method_$method.name" title="$method.name">$method.name</a>
+                                </code>
+                              </td>
+
+                              <td class="description">
+                                #if $method.deprecated
+                                  <div class="deprecated">
+                                    Deprecated: $method.deprecated
+                                  </div>
+                                #end if
+                              </td>
+
+                            </tr>
+                          #end for
+
+                        </tbody>
+                      </table>
+
                     #end for
                   </div>
-                </div>
-              #end if
+                #end if
 
-              #if $inherited.methods
-                <div rel="yui:inheritance">
-                  #for $superclassname in $inherited.methods
-                    <div class="section field inheritance" rel="yui:superclass"  resource="${superclassname}.html">
-                      <h4>
-                        Methods inherited from
-                        <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:
-                      </h4>
-                      <div class="content" rel="yui:methods">
-                        <code>
-                          #set i=0
-                          #set l=len($inherited.methods[$superclassname])-1
-                          #for $method in $inherited.methods[$superclassname]
-                            <span rel="yui:method" resource="${superclassname}.html#method_$method.name">
-                              <a class="$method.access#if $method.deprecated# deprecated#end if#" href="${superclassname}.html#method_$method.name" property="yui:name" title="$method.name">$method.name</a>
-                              #if $i < $l#
-                                <span class="$method.access #if $method.deprecated# deprecated #end if#">,</span>
-                              #end if#
-                            </span>
-                            #set i=i+1
-                          #end for
-                        </code>
-                      </div>
-                    </div>
-                  #end for
-                </div>
-              #end if
-            </div>
+              </div>
+            #end if
+
 
             <div rel="yui:events" resource="#events">
               #if $events

@@ -1,0 +1,17 @@
+div.section table thead th {
+  background-color: #CAD5E7;
+  text-align: left;
+}
+
+div.section table td {
+  vertical-align: top;
+}
+
+div.section table th, div.section table td {
+  border-color: #ccc;
+}
+
+code {
+  color: #1999A2;
+}
+
