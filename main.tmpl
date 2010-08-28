@@ -193,127 +193,175 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="code names">
-                        $classname
-                        (
-                        #if $constructor.params
-                          #set $i=0
-                          #set $current=""
-                          #for $param in $constructor.params#
-                            #if $current != $param.name
-                              #if $i > 0#, #end if#
-                              #set $i = $i + 1
-                              #set $current = $param.name
-                              $param.name
-                            #end if
-                          #end for
-                        #end if
-                        )
-                      </td>
-                      <td class="description parameters">
-                        #if $constructor.params
-                          <dl rel="yui:parameters">
-                            <dt>Parameters:</dt>
-                            #for $param in $constructor.params
-                              <dd rel="yui:parameter">
-                                <code>
-                                  <span property="yui:name">$param.name</span>
-                                  &lt;<span property="yui:type">$param.type</span>&gt;
-                                </code>
-                                <span property="yui:description">$param.description</span>
-                              </dd>
+                      
+                      <td class="names">
+                        <code>
+                          $classname
+                          (
+                          #if $constructor.params
+                            #set $i=0
+                            #set $current=""
+                            #for $param in $constructor.params#
+                              #if $current != $param.name
+                                #if $i > 0#, #end if#
+                                #set $i = $i + 1
+                                #set $current = $param.name
+                                $param.name
+                              #end if
                             #end for
-                          </dl>
+                          #end if
+                          )
+                        </code>
+                      </td>
+                      
+                      <td class="parameters">
+                        #if $constructor.params
+                          <p>Parameters:</p>
+                          <ul>
+                            #for $param in $constructor.params
+                              <li>
+                                <code>
+                                  $param.name
+                                  &lt;$param.type&gt;
+                                </code>
+                                $param.description
+                              </li>
+                            #end for
+                          </ul>
                         #end if
                       </td>
-                      <td class="description returns">
+                      
+                      <td class="returns">
                         #if $constructor.return
-                          <dl>
-                            <dt>Returns:</dt>
-                            <dd property="yui:return">
+                          <p>Returns:</p>
+                          <ul>
+                            <li>
+                              <code>
                                 $constructor.return
-                            </dd>
-                          </dl>
+                              </code>
+                            </li>
+                          </ul>
                         #end if
                       </td>
+                      
                     </tr>
                   </tbody>
                 </table>
               </div>
             #end if
 
-            <div rel="yui:properties" resource="#properties">
+            <div class="section properties" resource="#properties">
               #if $properties
-                <div class="section field details">
-                  <h3 id="properties">Properties</h3>
-                  <div class="content">
+                <h3>Properties</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>
+                        Properties
+                      </th>
+                      <th>
+                        Type
+                      </th>
+                      <th>
+                        Description
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
                     #for $property in $properties
-                      <div class="$property.access #if $property.deprecated# deprecated #end if#" rel="yui:property" resource="#property_$property.name">
-                        <h4>
-                          <a name="property_$property.name" property="yui:name">$property.name</a>
-                          - <code>
-                            #if $property.access#
-                              $property.access
-                            #end if#
-                            #if $property.static#
-                              $property.static
-                            #end if#
-                            #if $property.final#
-                              $property.final
-                            #end if#
-                            <span property="yui:type">$property.type</span>
+                      <tr>
+                      
+                        <td class="names">
+                          <code>
+                            <a name="property_$property.name">$property.name</a>
                           </code>
-                        </h4>
-                        <div class="detail">
-                          <div class="description" property="yui:description">
-                            $property.description
-                          </div>
-                        </div>
+                        </td>
 
-                        #if $property.default
-                          <div class="default" property="yui:defaultValue">
-                            Default Value: $property.default
-                          </div>
-                        #end if
+                        <td class="type">
+                          <code>
+                            $property.type
+                          </code>
 
-                        #if $property.deprecated
-                          <div class="deprecated" property="yui:deprecated">
-                            <strong>Deprecated:</strong>
-                            $property.deprecated
-                          </div>
-                        #end if
+                          #if $property.access#
+                            <span class="access">$property.access</span>
+                          #end if#
+                          #if $property.static#
+                            <span class="static">$property.static</span>
+                          #end if#
+                          #if $property.final#
+                            <span class="final">$property.final</span>
+                          #end if#
+                        </td>
 
-                        <hr />
-                      </div>
+                        <td class="description">
+                          $property.description
+                          
+                          #if $property.default
+                            Default value is <code>$property.default</code>.
+                          #end if
+
+                          #if $property.deprecated
+                            <div class="deprecated">
+                              Deprecated: $property.deprecated
+                            </div>
+                          #end if
+                        </td>
+
+                      </tr>
                     #end for
-                  </div>
-                </div>
+                  
+                  </tbody>
+                </table>
               #end if
 
               #if $inherited.properties
-                <div rel="yui:inheritance">
+                <div class="inherited-properties">
                   #for $superclassname in $inherited.properties
-                    <div class="section field inheritance" rel="yui:superclass" resource="${superclassname}.html">
-                      <h4>
-                        Properties inherited from
-                        <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:
-                      </h4>
-                      <div class="content" rel="yui:properties">
-                        <code>
-                          #set i=0
-                          #set l=len($inherited.properties[$superclassname])-1
-                          #for $prop in $inherited.properties[$superclassname]#
-                            <span rel="yui:property" resource="${superclassname}.html#property_$prop.name">
-                              <a class="$prop.access#if $prop.deprecated# deprecated#end if#" href="${superclassname}.html#property_$prop.name" property="yui:name" title="$prop.name">$prop.name</a>
-                              #if $i < $l#
-                                <span class="$prop.access#if $prop.deprecated# deprecated#end if#">,</span>
-                              #end if#
-                            </span>
-                            #set i=i+1
-                          #end for#
-                        </code>
-                      </div>
-                    </div>
+                    <h4>
+                      Properties inherited from
+                      <a href="${superclassname}.html" title="$superclassname">$superclassname</a>
+                    </h4>
+
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>
+                            Properties
+                          </th>
+                          <th>
+                            Notes
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        #set i=0
+                        #set l=len($inherited.properties[$superclassname])-1
+                        #for $prop in $inherited.properties[$superclassname]#
+
+                          <tr resource="${superclassname}.html#property_$prop.name">
+
+                            <td class="names">
+                              <code>
+                                <a class="$prop.access#if $prop.deprecated# deprecated#end if#" href="${superclassname}.html#property_$prop.name" title="$prop.name">$prop.name</a>
+                              </code>
+                            </td>
+
+                            <td class="description">
+                              #if $prop.deprecated
+                                <div class="deprecated">
+                                  Deprecated: $property.deprecated
+                                </div>
+                              #end if
+                            </td>
+
+                          </tr>
+                        #end for
+
+                      </tbody>
+                    </table>
+
                   #end for
                 </div>
               #end if
