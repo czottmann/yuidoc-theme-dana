@@ -1,0 +1,43 @@
+#content h2 {
+  font-weight: normal;
+}
+
+#content pre {
+  border: 1px solid #eee;
+  padding: 0.5em;
+  background-color: #f8f8f8;
+}
+
+#content div.section {
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px dotted #eee;
+}
+
+#content div.section table thead th {
+  background-color: #eeeeff;
+  text-align: left;
+}
+
+#content div.section table td {
+  vertical-align: top;
+}
+
+#content div.section table td.type code,
+#content div.section table td.returns code {
+  display: block;
+}
+
+#content div.section table td.type span,
+#content div.section table td.returns span {
+  font-size: 90%;
+  color: #777;
+  padding: 0 0.5em 0 0;
+}
+
+#content div.section table th,
+#content div.section table td {
+  border: 1px solid #ccc;
+  padding: 0.5em;
+}
+
