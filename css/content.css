@@ -2,6 +2,14 @@
   font-weight: normal;
 }
 
+#content h2 span.extends {
+  display: block;
+}
+
+#content h2 span.extends span.class {
+  color: #fff;
+}
+
 #content pre {
   border: 1px solid #eee;
   padding: 0.5em;
@@ -23,6 +31,23 @@
   vertical-align: top;
 }
 
+#content div.section table td.description {
+  vertical-align: top;
+  padding-right: 2em;
+}
+
+#content div.section table td.description a.top {
+  margin-right: -1.5em;
+  float: right;
+  color: #ddd;
+}
+
+#content div.section table th,
+#content div.section table td {
+  border: 1px solid #ccc;
+  padding: 0.5em;
+}
+
 #content div.section table td.type code,
 #content div.section table td.returns code {
   display: block;
@@ -35,9 +60,13 @@
   padding: 0 0.5em 0 0;
 }
 
-#content div.section table th,
-#content div.section table td {
-  border: 1px solid #ccc;
-  padding: 0.5em;
+#content div.section table td.type span.private,
+#content div.section table td.returns span.private {
+  color: #a22;
+}
+
+#content div.section table td.type span.protected,
+#content div.section table td.returns span.protected {
+  color: #d88;
 }
 

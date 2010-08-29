@@ -1,5 +1,6 @@
 #navigation > div {
   border: 1px solid #eee;
+  overflow: hidden;
 }
 
 #navigation h4 {

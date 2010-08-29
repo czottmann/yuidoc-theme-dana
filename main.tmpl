@@ -22,6 +22,11 @@
   <link rel="stylesheet" type="text/css" href="css/navigation.css">
   <link rel="stylesheet" type="text/css" href="css/content.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
 </head>
 
 <body>
@@ -96,11 +101,7 @@
               <h4>Classes</h4>
               <ul>
                 #for $classdef in $classnames
-                  #set $css = ""
-                  #if $classdef == $classname
-                    #set $css = "selected"
-                  #end if
-                  <li class="$css">
+                  <li #if $classdef == $classname# class="selected" #end if#>
                     <a href="${classdef}.html" title="$classdef">$classdef</a>
                   </li>
                 #end for
@@ -242,49 +243,19 @@
           
           #if $extends
             <span class="extends">
-            &laquo; extends <a href="${extends}.html" title="$extends">$extends</a>
-            </span>
-          #end if
-
-          #if $uses
-            <span class="uses">
-              &mdash; uses
-              #set $i=0
-              #for $provider in $uses#
-                #if $i > 0#, #end if#
-                <span resource="${provider}.html">
-                  <a href="${provider}.html" property="yui:name" title="$provider">$provider</a>
-                </span>
-                #set $i=$i+1#
-              #end for#
+              <span class="class">class</span> extends <a href="${extends}.html">$extends</a>
             </span>
           #end if
         </h2>
 
         <!-- class tree goes here -->
 
-        #if $subclasses
-          <dl class="subclasses">
-            <dt>Known subclasses:</dt>
-            <dd>
-              #for $subclass in $subclasses
-                <span resource="${subclass}.html">
-                  <a href="${subclass}.html" title="$subclass">$subclass</a>
-                </span>
-              #end for
-            </dd>
-          </dl>
-        #end if
-
         #if $deprecated
-          <div class="deprecated">
-            <b>Deprecated:</b>
-            $deprecated
-          </div>
+          <div class="deprecated">$deprecated</div>
         #end if
 
         #if $see
-          <div class="deprecated">
+          <div class="see">
             <b>See also:</b>
             $see
           </div>
@@ -293,6 +264,34 @@
         <div class="summary description">
           $description
         </div>
+        
+
+        #if $uses
+          <div class="section uses" resource="#uses">
+            <h3>Uses…</h3>
+            <ul>
+              #for $provider in $uses#
+                <li>
+                  <a href="${provider}.html">$provider</a>
+                </li>
+              #end for
+            </ul>
+          </div>
+        #end if
+
+
+        #if $subclasses
+          <div class="section subclasses" resource="#subclasses">
+            <h3>Known subclasses</h3>
+            <ul>
+              #for $subclass in $subclasses
+                <li>
+                  <a href="${subclass}.html" title="$subclass">$subclass</a>
+                </li>
+              #end for
+            </ul>
+          </div>
+        #end if
 
 
         #if $constructor
@@ -407,7 +406,7 @@
                         </code>
 
                         #if $property.access#
-                          <span class="access">$property.access</span>
+                          <span class="access $property.access">$property.access</span>
                         #end if#
                         #if $property.static#
                           <span class="static">$property.static</span>
@@ -418,6 +417,8 @@
                       </td>
 
                       <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
                         $property.description
                       
                         #if $property.default
@@ -472,9 +473,11 @@
                           </td>
 
                           <td class="description">
+                            <a href="#top" class="top" title="Jump back to the top">↑</a>
+
                             #if $prop.deprecated
                               <div class="deprecated">
-                                Deprecated: $property.deprecated
+                                Deprecated: $prop.deprecated
                               </div>
                             #end if
                           </td>
@@ -513,7 +516,7 @@
                 <tbody>
 
                   #for $method in $methods
-                    <tr resource="#method_$method.name">
+                    <tr class="$method.access #if $method.deprecated# deprecated #end if#" resource="#method_$method.name">
 
                       <td class="names">
                         <code>
@@ -540,7 +543,7 @@
                         </code>
 
                         #if $method.access#
-                          <span class="access">$method.access</span>
+                          <span class="access $method.access">$method.access</span>
                         #end if#
                         #if $method.static#
                           <span class="static">$method.static</span>
@@ -551,6 +554,8 @@
                       </td>
 
                       <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
                         $method.description
 
                         #if $method.params
@@ -635,10 +640,10 @@
                           </td>
 
                           <td class="description">
+                            <a href="#top" class="top" title="Jump back to the top">↑</a>
+
                             #if $method.deprecated
-                              <div class="deprecated">
-                                Deprecated: $method.deprecated
-                              </div>
+                              <span class="deprecated">deprecated</span>
                             #end if
                           </td>
 
@@ -657,7 +662,7 @@
 
 
         #if $events or $inherited.events
-          <div rel="yui:events" resource="#events">
+          <div class="section events" resource="#events">
             #if $events
               <h3>Events</h3>
               <table>
@@ -695,7 +700,7 @@
                         </code>
 
                         #if $event.access#
-                          <span class="access">$event.access</span>
+                          <span class="access $event.access">$event.access</span>
                         #end if#
                         #if $event.static#
                           <span class="static">$event.static</span>
@@ -706,6 +711,8 @@
                       </td>
 
                       <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
                         $event.description
 
                         #if $event.params
@@ -785,6 +792,8 @@
                           </td>
 
                           <td class="description">
+                            <a href="#top" class="top" title="Jump back to the top">↑</a>
+
                             #if $event.deprecated
                               <div class="deprecated">
                                 Deprecated: $event.deprecated
