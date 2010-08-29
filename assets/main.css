@@ -2,6 +2,19 @@
   line-height: 130%;
 }
 
+body {
+  background-color: #eee;
+}
+
+.container_16 {
+  background-color: #fff;
+}
+
+#nav {
+  border: 1px solid #eee;
+}
+
+
 div.section table thead th {
   background-color: #CAD5E7;
   text-align: left;
