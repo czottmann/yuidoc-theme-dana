@@ -6,44 +6,44 @@ body {
   background-color: #eee;
 }
 
-.container_16 {
-  background-color: #fff;
-}
-
-#nav {
-  border: 1px solid #eee;
+p, dl, hr, h1, h2, h3, h4, h5, h6, ol, ul, pre, table, address, fieldset {
+  margin-bottom: 0.8em;
 }
 
 
-div.section table thead th {
-  background-color: #CAD5E7;
-  text-align: left;
+a {
+  text-decoration: none;
+  color: #55d;
 }
 
-div.section table td {
-  vertical-align: top;
-}
-
-div.section table td.type code, div.section table td.returns code {
-  display: block;
-}
-
-div.section table td.type span, div.section table td.returns span {
-  font-size: 90%;
-  color: #777;
-  padding: 0 0.5em 0 0;
-}
-
-div.section table th, div.section table td {
-  border: 1px solid #ccc;
-  padding: 0.5em;
-}
-
-code {
+code, code a[name] {
   color: #007000;
   font-family: "Droid Sans Mono";
 }
 
-* {
-  line-height: 130%;
+
+#container {
+  background-color: #fff;
+}
+
+
+#hd h1 {
+  font-size: 2.3em;
+  line-height: 100%;
+  margin: 0.5em 0 0.5em 0;
+}
+
+#hd h1 a {
+  color: #222;
+}
+
+  
+#sub-hd #module-info {
+  float: right;
+}
+
+#sub-hd > div {
+  background-color: #eee;
+  margin: 0 0 1.5em 0;
+  padding: 0.5em;
 }
