@@ -393,7 +393,7 @@
                 <tbody>
                 
                   #for $property in $properties
-                    <tr>
+                    <tr class="$property.access #if $prop.deprecated# deprecated #end if#" resource="#property_$property.name">
                   
                       <td class="names">
                         <code>
@@ -463,11 +463,11 @@
 
                       #for $prop in $inherited.properties[$superclassname]#
 
-                        <tr resource="${superclassname}.html#property_$prop.name">
+                        <tr class="$prop.access#if $prop.deprecated# deprecated#end if#" resource="${superclassname}.html#property_$prop.name">
 
                           <td class="names">
                             <code>
-                              <a class="$prop.access#if $prop.deprecated# deprecated#end if#" href="${superclassname}.html#property_$prop.name" title="$prop.name">$prop.name</a>
+                              <a href="${superclassname}.html#property_$prop.name" title="$prop.name">$prop.name</a>
                             </code>
                           </td>
 
@@ -626,7 +626,7 @@
 
                       #for $method in $inherited.methods[$superclassname]
 
-                        <tr resource="${superclassname}.html#method_$method.name">
+                        <tr class="$method.access#if $method.deprecated# deprecated#end if#" resource="${superclassname}.html#method_$method.name">
 
                           <td class="names">
                             <code>
@@ -656,124 +656,154 @@
         #end if
 
 
-        <div rel="yui:events" resource="#events">
-          #if $events
-            <div class="section method details">
-              <h3 id="events">Events</h3>
-              <div class="content">
-                #for $event in $events
-                  <div class="$event.access #if $event.deprecated# deprecated #end if#" rel="yui:event" resource="#event_$event.name">
-                    <h4>
-                      <a name="event_$event.name">$event.name</a>
-                    </h4>
-                    <div class="detail">
-                      <code>
+        #if $events or $inherited.events
+          <div rel="yui:events" resource="#events">
+            #if $events
+              <h3>Events</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      Events
+                    </th>
+                    <th>
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  #for $event in $events
+                    <tr class="$event.access #if $event.deprecated# deprecated #end if#" resource="#event_$event.name">
+
+                      <td class="names">
+                        <code>
+                          <a name="event_$event.name">$event.name</a>(
+                          #if $event.params
+                            #set $i=0
+                            #set $current = ""
+                            #for $param in $event.params#
+                              #if $current != $param.name
+                                #if $i > 0#, #end if#
+                                #set $i = $i + 1
+                                #set $current = $param.name
+                                $param.name
+                              #end if#
+                            #end for#
+                          #end if
+                          )
+                        </code>
+
                         #if $event.access#
-                          $event.access
+                          <span class="access">$event.access</span>
                         #end if#
                         #if $event.static#
-                          $event.static
+                          <span class="static">$event.static</span>
                         #end if#
                         #if $event.final#
-                          $event.final
+                          <span class="final">$event.final</span>
                         #end if#
-                        <strong property="yui:name">$event.name</strong>
-                        (
-                        #if $event.params
-                          #set $i=0
-                          #set $current = ""
-                          #for $param in $event.params#
-                            #if $current != $param.name
-                              #if $i > 0#, #end if#
-                              #set $i = $i + 1
-                              #set $current = $param.name
-                              $param.name
-                            #end if#
-                          #end for#
-                        #end if
-                        )
-                      </code>
+                      </td>
 
-                      <div class="description" property="yui:description">
+                      <td class="description">
                         $event.description
-                      </div>
 
-                      <div class="description">
                         #if $event.params
-                          <dl rel="yui:parameters">
-                            <dt>Parameters:</dt>
+                          <p>Parameters:</p>
+                          <ul>
                             #for $param in $event.params
-                              <dd rel="yui:parameter">
+                              <li>
                                 <code>
-                                  <span property="yui:name">$param.name</span>
-                                  &lt;<span property="yui:type">$param.type</span>&gt;
+                                  $param.name
+                                  &lt;$param.type&gt;
                                 </code>
-                                <span property="yui:description">$param.description</span>
-                              </dd>
+                                $param.description
+                              </li>
                             #end for
-                          </dl>
+                          <ul>
                         #end if
 
                         #if $event.bubbles
-                          <div class="bubbles">
+                          <p class="bubbles">
                             <strong>Bubbles:</strong>
                             This event bubbles to
                             <a href="${event.bubbles}.html" title="$event.bubbles">$event.bubbles</a>.
-                          </div>
+                          </o>
                         #end if
                         #if $event.preventable
-                          <div class="preventable">
+                          <p class="preventable">
                             <strong>Preventable:</strong>
                             This event is preventable by method e.preventDefault(). The default function executed by this event is $event.preventable.
-                          </div>
+                          </p>
                         #end if
 
                         #if $event.deprecated
-                          <div class="deprecated">
-                            <strong>Deprecated</strong>
+                          <p class="deprecated">
+                            <strong>Deprecated:</strong>
                             $event.deprecated
-                          </div>
+                          </p>
                         #end if
-                      </div>
+                      </td>
 
-                    </div>
+                    </tr>
+                  #end for
 
-                    <hr />
-                  </div>
+                </tbody>
+              </table>
+
+            #end if
+
+            #if $inherited.events
+              <div class="inherited-methods">
+                #for $superclassname in $inherited.events
+                  <h4 resource="${superclassname}.html">
+                    Events inherited from
+                    <a href="${superclassname}.html" title="$superclassname">$superclassname</a>
+                  </h4>
+
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>
+                          Events
+                        </th>
+                        <th>
+                          Notes
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      #for $event in $inherited.events[$superclassname]
+
+                        <tr class="$method.access#if $method.deprecated# deprecated#end if#" resource="${superclassname}.html#event_$event.name">
+
+                          <td class="names">
+                            <code>
+                              <a href="${superclassname}.html#event_$event.name" title="$event.name">$event.name</a>
+                            </code>
+                          </td>
+
+                          <td class="description">
+                            #if $event.deprecated
+                              <div class="deprecated">
+                                Deprecated: $event.deprecated
+                              </div>
+                            #end if
+                          </td>
+
+                        </tr>
+                      #end for
+
+                    </tbody>
+                  </table>
+
                 #end for
               </div>
-            </div>
-          #end if
+            #end if
+          </div>
+        #end if
 
-          #if $inherited.events
-            <div rel="yui:inheritance">
-              #for $superclassname in $inherited.events
-                <div class="section field inheritance" rel="yui:superclass"  resource="${superclassname}.html">
-                  <h4>
-                    Events inherited from
-                    <a href="${superclassname}.html" property="yui:name" title="$superclassname">$superclassname</a>:
-                  </h4>
-                  <div class="content" rel="yui:events">
-                    <code>
-                      #set i=0
-                      #set l=len($inherited.methods[$superclassname])-1
-                      #for $event in $inherited.events[$superclassname]
-                        #set i=i+1
-                        <span rel="yui:event" resource="${superclassname}.html#event_$event.name">
-                          <a class="$event.access#if $event.deprecated# deprecated#end if#" href="${superclassname}.html#event_$event.name" property="yui:name" title="$event.name">$event.name</a>
-                          #if $i < $l#
-                            <span class="$event.access#if $event.deprecated# deprecated#end if#">,</span>
-                          #end if#
-                          #set i=i+1#
-                        </span>
-                      #end for#
-                    </code>
-                  </div>
-                </div>
-              #end for
-            </div>
-          #end if
-        </div>
 
         <div rel="yui:attributes" resource="#configattributes">
           #if $configs
