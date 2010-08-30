@@ -14,6 +14,7 @@
   border: 1px solid #eee;
   padding: 0.5em;
   background-color: #f8f8f8;
+  overflow: scroll;
 }
 
 #content div.section {
