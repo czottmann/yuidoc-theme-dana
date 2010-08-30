@@ -267,7 +267,7 @@
         
 
         #if $uses
-          <div class="section uses" resource="#uses">
+          <div class="section uses grid_8 alpha" resource="#uses">
             <h3>Uses…</h3>
             <ul>
               #for $provider in $uses#
@@ -281,7 +281,7 @@
 
 
         #if $subclasses
-          <div class="section subclasses" resource="#subclasses">
+          <div class="section subclasses grid_8 omega" resource="#subclasses">
             <h3>Known subclasses</h3>
             <ul>
               #for $subclass in $subclasses
@@ -292,6 +292,9 @@
             </ul>
           </div>
         #end if
+
+
+        <div class="clear"></div>
 
 
         #if $constructor
