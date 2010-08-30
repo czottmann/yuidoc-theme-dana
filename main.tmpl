@@ -34,39 +34,49 @@
 
     <!-- HEADER -->
     <header>
-      <div id="hd" class="grid_16">
+      <div id="hd" class="grid_10">
         <h1>
-          <a href="$projecturl" title="$projectname">$projectname</a>
+          <a href="$projecturl" title="$projectname">$projectname</a> v$version
         </h1>
       </div> <!--! end of #hd -->
     </header>
+
+    <div id="filters" class="grid_6">
+      <form action="#" method="get" id="show-toggles">
+        <fieldset>
+          <legend>Display Filters</legend>
+          <span class="classopts">
+            <input type="checkbox" name="show_private" id="show_private">
+            <label for="show_private">Show private</label>
+          </span>
+          <span class="classopts">
+            <input type="checkbox" name="show_protected" id="show_protected">
+            <label for="show_protected">Show protected</label>
+          </span>
+          <span class="classopts">
+            <input type="checkbox" name="show_deprecated" id="show_deprecated">
+            <label for="show_deprecated">Show deprecated</label>
+          </span>
+        </fieldset>
+      </form>
+
+    </div> <!--! end of #hd -->
 
 
     <!-- SUB-HEADER w/ BREADCRUMBS -->
 
     <div id="sub-hd" class="grid_16">
-      <div>
-
-        <div id="module-info">
-          #if $moduletitle
-            <strong>$moduletitle</strong> module
-          #end if
-          <span class="version">v$version</span>
-        </div>
-
-        <div id="breadcrumbs">
-          <a href="./index.html" title="$projectname">$projectname</a>
-          #if $modulename
-            &rarr; <a href="./${cleansedmodulename}.html" title="$modulename">$modulename</a>
-            #if $classname#
-              &rarr; $classname class
-            #end if#
-            #if $filename#
-              &rarr; $filename source view
-            #end if#
-          #end if
-        </div>
-
+      <div id="breadcrumbs">
+        <a href="./index.html" title="$projectname">$projectname</a>
+        #if $modulename
+          &rarr; module <a href="./${cleansedmodulename}.html" title="$modulename">$modulename</a>
+          #if $classname#
+            &rarr; class $classname
+          #end if#
+          #if $filename#
+            &rarr; file $filename
+          #end if#
+        #end if
       </div>
     </div> <!--! end of #sub-hd -->
     
@@ -202,24 +212,6 @@
 
       #else if $classname
       
-        <form action="#" method="get" id="show-toggles">
-          <fieldset>
-            <legend>Display Filters</legend>
-            <span class="classopts">
-              <input type="checkbox" name="show_private" id="show_private">
-              <label for="show_private">Show private</label>
-            </span>
-            <span class="classopts">
-              <input type="checkbox" name="show_protected" id="show_protected">
-              <label for="show_protected">Show protected</label>
-            </span>
-            <span class="classopts">
-              <input type="checkbox" name="show_deprecated" id="show_deprecated">
-              <label for="show_deprecated">Show deprecated</label>
-            </span>
-          </fieldset>
-        </form>
-
         <h2>
           #if $access#
             <code>$access</code>
@@ -278,7 +270,7 @@
 
 
             #if $subclasses
-              <div class="subclasses grid_8 omega" resource="#subclasses">
+              <div class="subclasses grid_8 #if not $uses# alpha #else# omega #end if#" resource="#subclasses">
                 <h3>Known subclasses</h3>
                 <ul>
                   #for $subclass in $subclasses
@@ -395,7 +387,7 @@
                 <tbody>
                 
                   #for $property in $properties
-                    <tr class="$property.access #if $prop.deprecated# deprecated #end if#" resource="#property_$property.name">
+                    <tr class="$property.access #if $property.deprecated# deprecated #end if#" resource="#property_$property.name">
                   
                       <td class="names">
                         <code>
@@ -422,20 +414,22 @@
                       <td class="description">
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
-                        #if $property.deprecated
-                          <div class="deprecated">
-                            deprecated
-                          </div>
-                        #end if
+                        <div>
+                          #if $property.deprecated
+                            <div class="deprecated">
+                              deprecated
+                            </div>
+                          #end if
 
-                        $property.description
-                      
-                        #if $property.default
-                          <p>
-                            <strong>Default value:</strong>
-                            <code>$property.default</code>.
-                          </p>
-                        #end if
+                          $property.description
+
+                          #if $property.default
+                            <p>
+                              <strong>Default value:</strong>
+                              <code>$property.default</code>.
+                            </p>
+                          #end if
+                        </div>
                       </td>
 
                     </tr>
@@ -477,13 +471,15 @@
                           </td>
 
                           <td class="description">
-                            <a href="#top" class="top" title="Jump back to the top">↑</a>
+                            <div>
+                              <a href="#top" class="top" title="Jump back to the top">↑</a>
 
-                            #if $prop.deprecated
-                              <div class="deprecated">
-                                deprecated
-                              </div>
-                            #end if
+                              #if $prop.deprecated
+                                <div class="deprecated">
+                                  deprecated
+                                </div>
+                              #end if
+                            </div>
                           </td>
 
                         </tr>
@@ -786,7 +782,7 @@
 
                       #for $event in $inherited.events[$superclassname]
 
-                        <tr class="$method.access#if $method.deprecated# deprecated#end if#" resource="${superclassname}.html#event_$event.name">
+                        <tr class="$method.access#if $event.deprecated# deprecated#end if#" resource="${superclassname}.html#event_$event.name">
 
                           <td class="names">
                             <code>
@@ -868,20 +864,22 @@
                       <td class="description">
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
-                        #if $config.deprecated
-                          <div class="deprecated">
-                            deprecated
-                          </div>
-                        #end if
+                        <div>
+                          #if $config.deprecated
+                            <div class="deprecated">
+                              deprecated
+                            </div>
+                          #end if
 
-                        $config.description
+                          $config.description
 
-                        #if $config.default
-                          <p class="default">
-                            <strong>Default value:</strong>
-                            <code>$config.default</code>
-                          </p>
-                        #end if
+                          #if $config.default
+                            <div class="default">
+                              <strong>Default value:</strong>
+                              <code>$config.default</code>
+                            </div>
+                          #end if
+                        </div>
                       </td>
 
                     </tr>
@@ -949,68 +947,75 @@
 
       #else if $modulename
 
-        <h3>
-          Module: $modulename
-
+        <h2>
+          module <strong>$modulename</strong>
+        
           #if $beta
-            <span class="description">
-              <em>Beta</em>
-            </span>
+            <em>beta</em>
           #end if
 
           #if $experimental
-            <span class="description">
-              <em>Experimental</em>
+            <em>experimental</em>
+          #end if
+
+          #if $extends
+            <span class="extends">
+              <span class="class">class</span> extends <a href="${extends}.html">$extends</a>
             </span>
           #end if
-        </h3>
+        </h2>
 
-        <div class="description summary">
+        <div class="summary description">
           $moduledesc
+
+          #if $requires
+            <p>
+              <strong>Requires:</strong>
+              $requires
+            </p>
+          #end if
+          
+          #if $optional
+            <p>
+              <strong>Optional:</strong>
+              $optional
+            </p>
+          #end if
         </div>
+        
+        
+      
+        #if $classnames or len($submodules) > 0
+          <div class="section">
 
-        #if $requires
-          <div class="content">
-            Requires:
-            $requires
-          </div>
-        #end if
+            #if $classnames
+              <div class="containedclasses grid_8 alpha" resource="#containedclasses">
+                <h3>Contained Classes</h3>
+                <ul>
+                  #for $classNames in $classList_raw
+                    <li>
+                      <a href="${classNames.name}.html" title="$classNames.name">$classNames.guessedname</a>
+                    </li>
+                  #end for
+                </ul>
+              </div>
+            #end if
 
-        #if $optional
-          <div class="content">
-            Optional:
-            $optional
-          </div>
-        #end if
 
-        #if $classnames
-          <p>This module contains the following classes:</p>
-          <div id="splash_classList">
-            <ul>
-              #set $counter = 0
-              #for $classNames in $classList_raw
-                <li>
-                  <a href="${classNames.name}.html" title="$classNames.name" id="class_${counter}">$classNames.guessedname</a>
-                </li>
-                #set $counter = $counter + 1
-              #end for
-            </ul>
-          </div>
-        #end if
+            #if len($submodules) > 0
+              <div class="subclasses grid_8 #if not $classnames# alpha #else# omega #end if#" resource="#subclasses">
+                <h3>Submodules</h3>
+                <ul>
+                  #for $info in $submodules
+                    <li>
+                      <code>$info</code>
+                      $subdata[$info].description
+                    </li>
+                  #end for
+                </ul>
+              </div>
+            #end if
 
-        #set count = 0;
-        #for $info in $submodules
-          #set count = count + 1
-        #end for
-        #if count != 0
-          <div class="submodules">
-            <h4>Submodules:</h4>
-            <dl>
-              #for $info in $submodules
-                <dt><code>$info</code></dt>
-                <dd>$subdata[$info].description</dd>
-              #end for
-            </dl>
           </div>
         #end if
 
