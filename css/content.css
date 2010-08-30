@@ -14,9 +14,15 @@
   border: 1px solid #eee;
   padding: 0.5em;
   background-color: #f8f8f8;
-  overflow: scroll;
+  overflow: auto;
 }
 
+#content div.deprecated {
+  background-color: #d53;
+  color: #fff;
+  padding: 0 1em;
+}
+  
 #content div.section {
   margin-top: 3em;
   padding-top: 2em;
