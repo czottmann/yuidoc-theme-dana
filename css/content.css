@@ -29,12 +29,15 @@
   border-top: 8pt solid #fcfcfc;
 }
 
-#content div.section h3,
-#content div.section h4 {
-  color: #444;
+#content div.section h3 {
+  background-color: #555;
+  color: #fff;
+  padding: 0.1em 0.5em;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 -1pt 0;
 }
 
 #content div.section h4 {
+  color: #444;
   margin-top: 1.25em;
 }
 
@@ -77,13 +80,13 @@
   padding: 0 0.5em 0 0;
 }
 
-#content div.section table td.type span.private,
-#content div.section table td.returns span.private {
+#content div.section table td.type span.access-private,
+#content div.section table td.returns span.access-private {
   color: #a22;
 }
 
-#content div.section table td.type span.protected,
-#content div.section table td.returns span.protected {
+#content div.section table td.type span.access-protected,
+#content div.section table td.returns span.access-protected {
   color: #d88;
 }
 
