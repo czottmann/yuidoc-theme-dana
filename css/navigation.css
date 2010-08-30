@@ -39,3 +39,19 @@
 #show-toggles fieldset {
   margin: 0;
 }
+
+
+#search-form {
+  float: right;
+  margin-top: -0.25em;
+}
+
+#search-form label {
+  color: #666;
+}
+
+#search-form #search {
+  border: 1pt solid #ddd;
+  width: 20em;
+}
+

@@ -22,7 +22,8 @@
   <link rel="stylesheet" type="text/css" href="css/navigation.css">
   <link rel="stylesheet" type="text/css" href="css/content.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono">
-
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.4.custom.css">
+  
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -67,6 +68,11 @@
 
     <div id="sub-hd" class="grid_16">
       <div id="breadcrumbs">
+        <form id="search-form" method="get" action="#">
+          <label for="search">Search:</label>
+          <input type="text" id="search" title="Find documentation">
+        </form>
+
         <a href="./index.html" title="$projectname">$projectname</a>
         #if $modulename
           &rarr; module <a href="./${cleansedmodulename}.html" title="$modulename">$modulename</a>
@@ -957,12 +963,6 @@
           #if $experimental
             <em>experimental</em>
           #end if
-
-          #if $extends
-            <span class="extends">
-              <span class="class">class</span> extends <a href="${extends}.html">$extends</a>
-            </span>
-          #end if
         </h2>
 
         <div class="summary description">
@@ -1003,7 +1003,7 @@
 
 
             #if len($submodules) > 0
-              <div class="subclasses grid_8 #if not $classnames# alpha #else# omega #end if#" resource="#subclasses">
+              <div class="subclasses grid_8 #if not $classnames# alpha #else# omega #end if#" resource="#submodules">
                 <h3>Submodules</h3>
                 <ul>
                   #for $info in $submodules
@@ -1039,6 +1039,7 @@
 
   <!-- Javascript at the bottom for fast page loading -->
   <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
+  <script src="js/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>
   <script src="js/jquery.json-2.2.min.js" type="text/javascript"></script>
   <script src="js/jstorage.min.js" type="text/javascript"></script>
   <script src="js/main.js" type="text/javascript"></script>
