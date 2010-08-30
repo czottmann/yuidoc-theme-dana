@@ -14,7 +14,7 @@ $( document ).ready( function() {
     $( "#search" ).autocomplete( "destroy" );
 
     $.ajax({
-      url: "index.json",
+      url: "./index.json",
       type: "json",
       complete: function( data ) {
         var acdata = $.parseJSON( data.responseText ),
@@ -27,7 +27,7 @@ $( document ).ready( function() {
               " (", dataset.type, ")"
             ].join( "" );
         
-          if ( $.jStorage.get( key, false ) || dataset.access === "" ) {
+          if ( !!$.cookie( key ) || dataset.access === "" ) {
             supply.push({
               label: label,
               url: dataset.url
@@ -54,7 +54,7 @@ $( document ).ready( function() {
   $.each( [ "private", "protected", "deprecated" ], function( i, kind ) {
     var key = "show_" + kind;
 
-    if ( $.jStorage.get( key, false ) ) {
+    if ( !!$.cookie( key ) ) {
       $( "#show-toggles :checkbox#" + key ).attr( "checked", true );
       $( "." + kind ).show();
     }
@@ -69,9 +69,9 @@ $( document ).ready( function() {
       what = name.replace( /^show_/, "" ),
       checked = ( elem.filter( ":checked" ).length !== 0 );
 
-    $.jStorage.set( name, checked );
+    $.cookie( name, checked ? true : null );
     
-    if ( checked ) {
+    if ( !!checked ) {
       $( "." + what ).show();
     }
     else {
