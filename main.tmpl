@@ -18,11 +18,11 @@
   </title>
 
   <link rel="stylesheet" type="text/css" href="css/960fluid.min.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.4.custom.css">
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="css/navigation.css">
   <link rel="stylesheet" type="text/css" href="css/content.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono">
-  <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.4.custom.css">
   
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -141,6 +141,15 @@
                 #for $prop in $properties
                   <li class="${prop.access} #if $prop.deprecated# deprecated #end if#">
                     <a href="#property_${prop.name}">$prop.name</a>
+                    #if $prop.access == "private"
+                      <span class="access-private">[priv]</span>
+                    #end if
+                    #if $prop.access == "protected"
+                      <span class="access-protected">[prot]</span>
+                    #end if
+                    #if $prop.deprecated
+                      <span class="deprecated">[depr]</span>
+                    #end if
                   </li>
                 #end for
               </ul>
@@ -154,6 +163,15 @@
                 #for $method in $methods
                   <li class="${method.access} #if $method.deprecated# deprecated #end if#">
                     <a href="#method_${method.name}">$method.name</a>
+                    #if $method.access == "private"
+                      <span class="access-private">[priv]</span>
+                    #end if
+                    #if $method.access == "protected"
+                      <span class="access-protected">[prot]</span>
+                    #end if
+                    #if $method.deprecated
+                      <span class="deprecated">[depr]</span>
+                    #end if
                   </li>
                 #end for
               </ul>
@@ -167,6 +185,15 @@
                 #for $event in $events
                   <li class="${event.access}#if $event.deprecated# deprecated#end if#">
                     <a href="#event_${event.name}">$event.name</a>
+                    #if $event.access == "private"
+                      <span class="access-private">[priv]</span>
+                    #end if
+                    #if $event.access == "protected"
+                      <span class="access-protected">[prot]</span>
+                    #end if
+                    #if $event.deprecated
+                      <span class="deprecated">[depr]</span>
+                    #end if
                   </li>
                 #end for
               </ul>
@@ -180,6 +207,15 @@
                 #for $config in $configs
                   <li class="${config.access} #if $config.deprecated# deprecated #end if#">
                     <a href="#config_${config.name}">$config.name</a>
+                    #if $config.access == "private"
+                      <span class="access-private">[priv]</span>
+                    #end if
+                    #if $config.access == "protected"
+                      <span class="access-protected">[prot]</span>
+                    #end if
+                    #if $config.deprecated
+                      <span class="deprecated">[depr]</span>
+                    #end if
                   </li>
                 #end for
               </ul>
@@ -209,9 +245,9 @@
 
         <!--! source code view -->
         <div id="srcout">
-          <style type="text/css">
-            #doc3 #yui-classopts-form { display: none; } /* removes filters form */
-          </style>
+          <h2>
+            file <strong>$filename</strong>
+          </h2>
 
           $highlightcontent
         </div>

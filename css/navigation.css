@@ -26,6 +26,26 @@
   padding-left: 1em
 }
 
+#navigation li span.access-private {
+  color: #a22;
+}
+
+#navigation li span.access-protected {
+  color: #d88;
+}
+
+#navigation li span.deprecated {
+  background-color: #d53;
+  color: #fff;
+  padding: 0 0.4em;
+}
+
+#navigation li span.access-private,
+#navigation li span.access-protected,
+#navigation li span.deprecated {
+  font-size: 0.85em;
+}
+
 
 #show-toggles {
   float: right;

@@ -21,6 +21,8 @@
   background-color: #d53;
   color: #fff;
   padding: 0 1em;
+  margin-bottom: 0.4em;
+  display: inline-block;
 }
   
 #content div.section {
