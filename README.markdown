@@ -38,7 +38,7 @@ I assume you've got YUIDoc up and running at this point. Just
 theme, unpack it, and point `yuidoc.py` to it using the script's
 `-t/--template` option.
 
-Tested in Safari 5 (OSX), FF3.6 (OSX).
+Tested in Safari 5 (OSX), FF3.6 (OSX), IE8 (WinXP).
 
 
 ## Acknowledgements
