@@ -1,4 +1,4 @@
-# "Dana" YUIDoc Theme
+# YUIDoc Theme "Dana"
 
 I like [YUIDoc](http://developer.yahoo.com/yui/yuidoc/).  I don't like its
 default theme.  Since I couldn't find any other themes on them internets, I
@@ -37,6 +37,8 @@ I assume you've got YUIDoc up and running at this point. Just
 [download](http://github.com/carlo/yuidoc-theme-dana/downloads) this here
 theme, unpack it, and point `yuidoc.py` to it using the script's
 `-t/--template` option.
+
+Tested in Safari 5 (OSX), FF3.6 (OSX).
 
 
 ## Acknowledgements
