@@ -18,14 +18,6 @@ YMMV. If you encounter errors, please [create a
 ticket](http://github.com/carlo/yuidoc-theme-dana/issues).
 
 
-## Installation / Usage
-
-I assume you've got YUIDoc up and running at this point. Just
-[download](http://github.com/carlo/yuidoc-theme-dana/downloads) this here
-theme, unpack it, and point `yuidoc.py` to it using the script's
-`-t/--template` option.
-
-
 ## Example
 
 Here's the original YUI documentation in its [original
@@ -37,6 +29,14 @@ theme](http://zottmann.org/yuidoc-theme-dana-example/index.html).
 I hope you find the latter more pleasing. :) Click around a bit; check some of
 the class documentations for a more in-depth comparison; play with the
 filters; feel the luxurious yet cheap plastic underneath.
+
+
+## Installation / Usage
+
+I assume you've got YUIDoc up and running at this point. Just
+[download](http://github.com/carlo/yuidoc-theme-dana/downloads) this here
+theme, unpack it, and point `yuidoc.py` to it using the script's
+`-t/--template` option.
 
 
 ## Acknowledgements
@@ -56,6 +56,8 @@ This software uses...
 * the [Fluid 960 Grid System](http://960.gs/) by Nathan Smith,
   [960.gs](http://960.gs/), dual-licensed under MIT & GNU GPL.
 * [jQuery](http://jquery.com/), dual-licensed under MIT & GNU GPL.
+* [jQuery-cookie](http://stilbuero.de/jquery/cookie/), by Klaus Hartl,
+  dual-licensed under MIT & GNU GPL.
 
 
 ## Known issues
