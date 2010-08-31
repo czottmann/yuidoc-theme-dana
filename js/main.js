@@ -15,10 +15,9 @@ $( document ).ready( function() {
 
     $.ajax({
       url: "./index.json",
-      type: "json",
-      complete: function( data ) {
-        var acdata = $.parseJSON( data.responseText ),
-          supply = [];
+      dataType: "json",
+      success: function( acdata ) {
+        var supply = [];
 
         $.each( acdata, function( i, dataset ) {
           var key = "show_" + dataset.access,
