@@ -1,4 +1,30 @@
 #encoding UTF-8
+
+<%
+
+# This should probably be part of the YUIDoc Python file.  It isn't and I
+# don't feel like forking it, so bear with me. -Carlo
+
+def print_params( params ):
+  current = ""
+  arguments = []
+  
+  for param in params:
+    split_name = param["name"].split( "." )
+    name = param["name"]
+
+    if ( len( split_name ) == 2 ):
+      name = split_name[ 0 ]
+
+    if current != name:
+      arguments.append( name )
+
+    current = name
+
+  return ", ".join( arguments )
+  
+%>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -355,21 +381,7 @@
                   <td class="names">
                     <code>
                       <span>$classname</span>(
-                      #if $constructor.params
-                        #set $i=0
-                        #set $current = ""
-                        #for $param in $constructor.params#
-                          #if $current != $param.name
-                            #set $i += 1
-                            #if len( $constructor.params ) > $i
-                              $param.name,
-                            #else
-                              $param.name
-                            #end if#
-                            #set $current = $param.name
-                          #end if#
-                        #end for#
-                      #end if
+                      $print_params( $constructor.params )
                       )
                     </code>
                   </td>
@@ -566,21 +578,7 @@
                       <td class="names">
                         <code>
                           <a name="method_$method.name">$method.name</a>(
-                          #if $method.params
-                            #set $i=0
-                            #set $current = ""
-                            #for $param in $method.params#
-                              #if $current != $param.name
-                                #set $i += 1
-                                #if len( $method.params ) > $i
-                                  $param.name,
-                                #else
-                                  $param.name
-                                #end if#
-                                #set $current = $param.name
-                              #end if#
-                            #end for#
-                          #end if
+                          $print_params( $method.params )
                           )
                         </code>
                       </td>
@@ -732,21 +730,7 @@
                       <td class="names">
                         <code>
                           <a name="event_$event.name">$event.name</a>(
-                          #if $event.params
-                            #set $i=0
-                            #set $current = ""
-                            #for $param in $event.params#
-                              #if $current != $param.name
-                                #set $i += 1
-                                #if len( $event.params ) > $i
-                                  $param.name,
-                                #else
-                                  $param.name
-                                #end if#
-                                #set $current = $param.name
-                              #end if#
-                            #end for#
-                          #end if
+                          $print_params( $event.params )
                           )
                         </code>
 
