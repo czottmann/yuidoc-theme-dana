@@ -31,6 +31,26 @@ the class documentations for a more in-depth comparison; play with the
 filters; feel the luxurious yet cheap plastic underneath.
 
 
+### Built-in Goodies
+
+I've taken the liberty of implementing an (IMHO) better display of object-type parameters: if several parameters are passed in as properties on a single object, only that object will be displayed as a parameter in the tables' first columns.  As an example, let's say you're documenting three parameters your method is expecting:
+
+    * …
+    * @param  obj.param1 {String} A string!
+    * @param  obj.param2 {Number} A number!
+    * @param  obj.param3 {Boolean} A boolean, surprisingly!
+    * …
+
+Here's how these would be displayed in the generated documentation:
+
+Original YUIDoc theme: `method( obj.param1, obj.param2, obj.param3 )`  
+Dana theme: `method( obj )`
+
+For a real-life example, see the docs for [YAHOO.widget.DataTable's events](http://zottmann.org/yuidoc-theme-dana-example/YAHOO.widget.DataTable.html#event_cellClickEvent).
+
+This behaviour was added in the templates; I am aware that this is hardly the best place for putting new functionality, but I didn't feel like forking YUIDoc, so have mercy.  ;)
+
+
 ## Installation / Usage
 
 I assume you've got YUIDoc up and running at this point. Just
