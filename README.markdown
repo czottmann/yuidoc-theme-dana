@@ -41,6 +41,14 @@ theme, unpack it, and point `yuidoc.py` to it using the script's
 Tested in Safari 5 (OSX), FF3.6 (OSX), IE8 (WinXP).
 
 
+## Requirements
+
+[YUIDoc](http://developer.yahoo.com/yui/yuidoc/) **>v1.0.0b1**.  The theme is
+using template variables introduced in one of the later builds.  It's working
+fine with [build yuidoc-50](http://github.com/yui/yuidoc/downloads), so either
+get that one or grab the current YUIDoc master branch.
+
+
 ## Acknowledgements
 
 My thanks go to the [YUIDoc](http://developer.yahoo.com/yui/yuidoc/) guys,
