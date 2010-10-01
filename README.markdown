@@ -31,7 +31,7 @@ the class documentations for a more in-depth comparison; play with the
 filters; feel the luxurious yet cheap plastic underneath.
 
 
-### Built-in Goodies
+## Built-in Goodies
 
 I've taken the liberty of implementing an (IMHO) better display of object-type parameters: if several parameters are passed in as properties on a single object, only that object will be displayed as a parameter in the tables' first columns.  As an example, let's say you're documenting three parameters your method is expecting:
 
