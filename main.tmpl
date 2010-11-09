@@ -34,7 +34,12 @@ def print_params( params ):
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <title>
-    API: $modulename
+    API:
+    #if $modulename
+      $modulename
+    #else
+      $projectname
+    #end if#
     #if $classname#
       &rarr; $classname class
     #end if#
