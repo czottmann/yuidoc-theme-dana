@@ -4,10 +4,7 @@
 
 #content h2 span.extends {
   display: block;
-}
-
-#content h2 span.extends span.class {
-  color: #fff;
+  font-size: 65%;
 }
 
 #content pre {
