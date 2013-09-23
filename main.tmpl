@@ -34,7 +34,12 @@ def print_params( params ):
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <title>
-    API: $modulename
+    API:
+    #if $modulename
+      $modulename
+    #else
+      $projectname
+    #end if#
     #if $classname#
       &rarr; $classname class
     #end if#
@@ -609,7 +614,7 @@ def print_params( params ):
                           </div>
                         #end if
 
-                        $method.description
+                        <p>$method.description</p>
 
                         #if $method.params
                           <p>Parameters:</p>
@@ -623,7 +628,7 @@ def print_params( params ):
                                 $param.description
                               </li>
                             #end for
-                          <ul>
+                          </ul>
                         #end if
 
                         #if $method.chainable
@@ -769,7 +774,7 @@ def print_params( params ):
                                 $param.description
                               </li>
                             #end for
-                          <ul>
+                          </ul>
                         #end if
 
                         #if $event.bubbles
